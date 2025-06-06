@@ -7,7 +7,6 @@ public class Main {
             System.out.println("POKEMON");
             System.out.println("Inicio do projeto");
             System.out.println("teste");
-            System.out.println("AIAIAIAI");
 
         }
     }
