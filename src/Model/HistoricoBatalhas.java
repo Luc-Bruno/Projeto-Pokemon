@@ -5,8 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class HistoricoBatalhas {
-    batalhas = new ArrayList<>();
+    private List<Batalha> batalhas;
 
+public HistoricoBatalhas() {
+    batalhas = new ArrayList<>();
+}
 
     public void adicionar(Batalha b) {
         batalhas.add(b);
