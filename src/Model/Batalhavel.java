@@ -1,7 +1,9 @@
 package Model;
 
 public interface Batalhavel {
-void atacar();
-void defender();
+
+void atacar(Batalhavel oponente);
+String getNome();
+int getNivel();
 }
 
