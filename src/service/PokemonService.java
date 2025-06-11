@@ -30,7 +30,7 @@ public class PokemonService {
     }
 
     public List<Pokemon> listarPokemons() {
-        return new ArrayList<>(pokemons); // cópia da lista para segurança
+        return new ArrayList<>(pokemons);
     }
 
 
