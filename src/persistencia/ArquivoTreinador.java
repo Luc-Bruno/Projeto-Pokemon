@@ -1,46 +1,43 @@
 package persistencia;
 
 import Model.Treinador;
-
-import java.io.*;
+import Model.TreinadorRepository;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArquivoTreinador {
+    private static final String PATH = "treinadores.txt";
 
-    private static final String CAMINHO =  "treinadores.txt";
-
-    public static void salvar(ArrayList<Treinador> treinadores){
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(CAMINHO))){
-            for(Treinador t : treinadores){
-                bw.write(t.getNome() + ";" + t.getIdade());
-                bw.newLine();
+    public List<Treinador> carregar() {
+        List<Treinador> lista = new ArrayList<>();
+        File f = new File(PATH);
+        if (!f.exists()) return lista;
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lista.add(TreinadorRepository.getOuCriar(line.trim()));
             }
-        }catch(IOException e){
-            System.out.println("Erro ao salvar Treinadores: " + e.getMessage());
-        }
-    }
-
-    public static ArrayList<Treinador> carregar(){
-        ArrayList<Treinador> lista = new ArrayList<>();
-
-        File arquivoT = new File(CAMINHO);
-        if (!arquivoT.exists()){
-            return lista;
-        }
-        try(BufferedReader br = new BufferedReader(new FileReader(CAMINHO))){
-            String linha;
-            while((linha = br.readLine()) != null){
-                String[] partes  = linha.split(";");
-                if (partes.length ==2){
-                    String nome = partes[0];
-                    int idade = Integer.parseInt(partes[1]);
-                    lista.add(new Treinador(nome, idade));
-                }
-            }
-        }catch(IOException e){
-            System.out.println("Erro ao ler Treinadores: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return lista;
     }
 
+    public void salvar(List<Treinador> treinadores) {
+        File f = new File(PATH);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
+            for (Treinador t : treinadores) {
+                bw.write(t.getNome());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

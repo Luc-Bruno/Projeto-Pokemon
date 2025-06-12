@@ -1,44 +1,59 @@
 package Controller;
 
-import java.util.ArrayList;
+import Model.Pokemon;
+import Model.Tipo;
+import Model.Treinador;
+import service.PokemonService;
+
 import java.util.List;
 
-import Model.Pokemon;
-
 public class PokemonController {
-    private List<Pokemon> pokemons = new ArrayList<>();
-    public void adicionarPokemon(Pokemon p) {
-    pokemons.add(p);
-    System.out.println("Pokémon adicionado: " + p.getNome());
-}
+    private final PokemonService service = new PokemonService();
 
-public List<Pokemon> listarPokemons() {
-    return pokemons;
-}
-
-public Pokemon buscarPorNome(String nome) {
-    for (Pokemon p : pokemons) {
-        if (p.getNome().equalsIgnoreCase(nome)) return p;
+    /** Retorna a lista para quem quiser trabalhar com ela */
+    public List<Pokemon> getPokemons() {
+        return service.getPokemons();
     }
-    return null;
-}
 
-public boolean atualizarNivel(String nome, int novoNivel) {
-    Pokemon p = buscarPorNome(nome);
-    if (p != null) {
-        p.setNivel(novoNivel);
-        return true;
+    /** Imprime a lista formatada no console */
+    public void listarPokemons() {
+        List<Pokemon> lista = service.getPokemons();
+        if (lista.isEmpty()) {
+            System.out.println("Nenhum Pokémon cadastrado.");
+            return;
+        }
+        for (int i = 0; i < lista.size(); i++) {
+            Pokemon p = lista.get(i);
+            System.out.printf(
+                    "%d) %s | Tipo: %s | Nível: %d | Treinador: %s%n",
+                    i,
+                    p.getNome(),
+                    p.getTipo(),
+                    p.getNivel(),
+                    p.getTreinador().getNome()
+            );
+        }
     }
-    return false;
-}
 
-public boolean removerPokemon(String nome) {
-    return pokemons.removeIf(p -> p.getNome().equalsIgnoreCase(nome));
-}
+    /** Cria e persiste um novo Pokémon */
+    public void adicionarPokemon(String nome, Tipo tipo, int nivel, Treinador dono) {
+        service.criarPokemon(nome, tipo, nivel, dono);
+        System.out.println("Pokémon \"" + nome + "\" adicionado com sucesso.");
+    }
 
-public List<Pokemon> getTodos() {
-    return pokemons;
-}
+    /** Remove pelo nome e persiste */
+    public boolean removerPokemon(String nome) {
+        boolean ok = service.removerPokemon(nome);
+        if (ok) System.out.println("Pokémon \"" + nome + "\" removido.");
+        return ok;
+    }
 
-
+    /** Atualiza o nível (ganha XP se subir) e persiste */
+    public boolean atualizarNivel(String nome, int novoNivel) {
+        boolean ok = service.atualizarNivel(nome, novoNivel);
+        if (ok) {
+            System.out.println("Nível do Pokémon \"" + nome + "\" atualizado para " + novoNivel + ".");
+        }
+        return ok;
+    }
 }

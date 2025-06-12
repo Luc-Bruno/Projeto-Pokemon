@@ -34,12 +34,6 @@ public abstract class Pokemon implements Batalhavel {
         this.nivel += pontos;
     }
 
-    public abstract void usarHabilidade();
-
     @Override
     public abstract void atacar(Batalhavel alvo);
 }
-
-
-
-

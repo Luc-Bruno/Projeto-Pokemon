@@ -1,118 +1,100 @@
+// src/View/TreinadorView.java
 package View;
 
 import Controller.TreinadorController;
 import Model.Treinador;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TreinadorView {
-    private Scanner scan = new Scanner(System.in);
-    private TreinadorController controleT = new TreinadorController();
+    private final Scanner scan = new Scanner(System.in);
+    private final TreinadorController controleT = new TreinadorController();
 
-    public void menuT(){
+    public void menuT() {
         int op;
-        do{
-            System.out.println("---MENU TREINADOR---");
-            System.out.println("(1). Cadastrar Treinador");
-            System.out.println("(2). Listar Treinadores");
-            System.out.println("(3). Remover Treinador");
-            System.out.println("(4). Atualizar Treinador");
-            System.out.println("(0). Sair");
-            op = scan.nextInt();scan.nextLine();
-            switch(op){
+        do {
+            System.out.println("\n--- MENU TREINADOR ---");
+            System.out.println("1. Cadastrar Treinador");
+            System.out.println("2. Listar Treinadores");
+            System.out.println("3. Remover Treinador");
+            System.out.println("4. Atualizar Treinador");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            op = Integer.parseInt(scan.nextLine());
+
+            switch (op) {
                 case 1 -> cadastrarT();
                 case 2 -> listarT();
                 case 3 -> removerT();
                 case 4 -> atualizarT();
                 case 0 -> System.out.println("Saindo...");
-                default -> System.out.println("Opção inválida!\nEscolha uma Opção Válida!!");
+                default -> System.out.println("Opção inválida! Tente novamente.");
             }
-        }while(op != 0);
+        } while (op != 0);
     }
 
-    public void cadastrarT(){
+    private void cadastrarT() {
         String nome = lerNome();
-        int idade = lerIdade();
+        int idade   = lerIdade();
         controleT.cadastrarTreinador(nome, idade);
     }
 
-    public void listarT(){
-        ArrayList<Treinador> treinadores = controleT.listarTreinadores();
-        for (Treinador t : treinadores){
-            System.out.println("Nome: " + t.getNome() + ", Idade: " + t.getIdade());
+    private void listarT() {
+        List<Treinador> treinadores = controleT.listarTreinadores();
+        if (treinadores.isEmpty()) {
+            System.out.println("Nenhum treinador cadastrado.");
+            return;
+        }
+        System.out.println("\nTreinadores cadastrados:");
+        for (Treinador t : treinadores) {
+            System.out.printf("- Nome: %s | Idade: %d%n", t.getNome(), t.getIdade());
         }
     }
 
-    public void removerT(){
-        System.out.println("Nome do Treinador que deseja remover: ");
-        String nome = scan.nextLine();
+    private void removerT() {
+        System.out.print("Nome do treinador a remover: ");
+        String nome = scan.nextLine().trim();
         controleT.removerTreinador(nome);
     }
 
-    public void atualizarT(){
+    private void atualizarT() {
         System.out.print("Nome do treinador a atualizar: ");
-        String nomeAntigo = scan.nextLine();
+        String nomeAntigo = scan.nextLine().trim();
 
-        System.out.println("Digite as novas informações: ");
+        System.out.println("Digite os novos dados:");
         String novoNome = lerNome();
-        int novaIdade = lerIdade();
+        int novaIdade   = lerIdade();
 
         controleT.atualizarTreinador(nomeAntigo, novoNome, novaIdade);
     }
 
-    private String lerNome(){
-        String nome = "";
-        boolean valido = false;
-
-        while (!valido) {
-            try{
-                System.out.println("Digite o Nome com apenas Letras: ");
-                nome = scan.nextLine().trim();
-
-                if (nome.isEmpty()){
-                    throw new IllegalArgumentException("O Nome não pode estar vazio.");
-                }
-
-                for(char c : nome.toCharArray()){
-                    if (!Character.isLetter(c) && c != ' '){
-                        throw new IllegalArgumentException("O nome deve conter apenas letras e espaços.");
-                    }
-                }
-                valido = true;
-            } catch (IllegalArgumentException e){
-                System.out.println("Erro: " + e.getMessage());
+    private String lerNome() {
+        String nome;
+        while (true) {
+            System.out.print("Digite o nome (letras e espaços): ");
+            nome = scan.nextLine().trim();
+            if (nome.isEmpty()) {
+                System.out.println("Erro: nome não pode ficar vazio.");
+                continue;
             }
+            boolean valido = nome.chars().allMatch(c -> Character.isLetter(c) || Character.isSpaceChar(c));
+            if (valido) return nome;
+            System.out.println("Erro: use apenas letras e espaços.");
         }
-        return  nome;
     }
 
-    private int lerIdade(){
-        int idade = -1;
-        boolean valido = false;
-
-        while(!valido){
-            try{
-                System.out.println("Digite a Idade entre (1 a 100): ");
-                String entrada = scan.nextLine().trim();
-
-                if (entrada.isEmpty()){
-                    throw new IllegalArgumentException("A idade não pode estar vazia.");
-                }
-                idade = Integer.parseInt(entrada);
-
-                if (idade < 1 || idade > 99){
-                    throw new IllegalArgumentException("A idade deve estar entre 1 e 99 anos");
-                }
-                valido = true;
-            }catch(NumberFormatException e){
-                System.out.println("Erro: Digite apenas números.");
-            }catch (IllegalArgumentException e ){
-                System.out.println("Erro: " + e.getMessage());
+    private int lerIdade() {
+        while (true) {
+            System.out.print("Digite a idade (1 a 99): ");
+            String input = scan.nextLine().trim();
+            try {
+                int idade = Integer.parseInt(input);
+                if (idade >= 1 && idade <= 99) return idade;
+                System.out.println("Erro: idade deve estar entre 1 e 99.");
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: digite apenas números válidos.");
             }
         }
-
-        return idade;
     }
-
 }

@@ -1,9 +1,9 @@
 package persistencia;
 
 import Model.Batalha;
+import Model.Pokemon;
 import Model.Treinador;
 import Model.TreinadorRepository;
-import Model.Pokemon;
 import Model.PokemonRepository;
 import Model.Tipo;
 import java.io.BufferedReader;
@@ -20,31 +20,21 @@ public class ArquivoBatalha {
 
     public List<Batalha> carregar() {
         List<Batalha> lista = new ArrayList<>();
-        File file = new File(PATH);
-        if (!file.exists()) return lista;
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        File f = new File(PATH);
+        if (!f.exists()) return lista;
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
-                if (parts.length < 7) continue;
-
-                String t1Nome   = parts[0];
-                String p1Nome   = parts[1];
-                Tipo   p1Tipo   = Tipo.valueOf(parts[2]);
-                String t2Nome   = parts[3];
-                String p2Nome   = parts[4];
-                Tipo   p2Tipo   = Tipo.valueOf(parts[5]);
-                String vencedor = parts[6];
-
-                Treinador t1 = TreinadorRepository.getOuCriar(t1Nome);
-                Pokemon    p1 = PokemonRepository.getOuCriar(p1Nome, p1Tipo, t1);
-
-                Treinador t2 = TreinadorRepository.getOuCriar(t2Nome);
-                Pokemon    p2 = PokemonRepository.getOuCriar(p2Nome, p2Tipo, t2);
-
-                Batalha b = new Batalha(p1, p2);
-                b.setVencedor(vencedor);
+                String[] p = line.split(";");
+                if (p.length < 7) continue;
+                Treinador t1 = TreinadorRepository.getOuCriar(p[0]);
+                Tipo tipo1    = Tipo.valueOf(p[2]);
+                Pokemon  pk1  = PokemonRepository.getOuCriar(p[1], tipo1, t1);
+                Treinador t2 = TreinadorRepository.getOuCriar(p[3]);
+                Tipo tipo2    = Tipo.valueOf(p[5]);
+                Pokemon  pk2  = PokemonRepository.getOuCriar(p[4], tipo2, t2);
+                Batalha  b    = new Batalha(pk1, pk2);
+                b.setVencedor(p[6]);
                 lista.add(b);
             }
         } catch (IOException e) {
@@ -54,8 +44,8 @@ public class ArquivoBatalha {
     }
 
     public void salvar(List<Batalha> batalhas) {
-        File file = new File(PATH);
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+        File f = new File(PATH);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
             for (Batalha b : batalhas) {
                 String line = String.join(";",
                         b.getTreinador1().getNome(),

@@ -1,9 +1,8 @@
+// src/Model/Batalhavel.java
 package Model;
 
 public interface Batalhavel {
+    void usarHabilidade();
 
-void atacar(Batalhavel alvo);
-String getNome();
-int getNivel();
+    void atacar(Batalhavel alvo);
 }
-

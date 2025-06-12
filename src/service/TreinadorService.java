@@ -1,3 +1,4 @@
+// src/service/TreinadorService.java
 package service;
 
 import Model.Treinador;
@@ -7,23 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreinadorService {
-
-    private List<Treinador> treinadores;
-    private ArquivoTreinador arquivo;
+    private final List<Treinador> treinadores;
+    private final ArquivoTreinador arquivo;
 
     public TreinadorService() {
-        this.arquivo = new ArquivoTreinador();
+        this.arquivo      = new ArquivoTreinador();
         this.treinadores = arquivo.carregar();
     }
 
-    public void adicionarTreinador(Treinador t) {
+    public Treinador cadastrarTreinador(String nome, int idade) {
+        Treinador t = new Treinador(nome, idade);
         treinadores.add(t);
+        return t;
     }
 
     public boolean removerTreinador(String nome) {
-        Treinador encontrado = buscarTreinadorPorNome(nome);
-        if (encontrado != null) {
-            treinadores.remove(encontrado);
+        Treinador t = buscarTreinador(nome);
+        if (t != null) {
+            treinadores.remove(t);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean atualizarTreinador(String nome, String novoNome, int novaIdade) {
+        Treinador t = buscarTreinador(nome);
+        if (t != null) {
+            t.setNome(novoNome);
+            t.setIdade(novaIdade);
             return true;
         }
         return false;
@@ -33,7 +45,7 @@ public class TreinadorService {
         return new ArrayList<>(treinadores);
     }
 
-    public Treinador buscarTreinadorPorNome(String nome) {
+    public Treinador buscarTreinador(String nome) {
         for (Treinador t : treinadores) {
             if (t.getNome().equalsIgnoreCase(nome)) {
                 return t;
@@ -42,11 +54,13 @@ public class TreinadorService {
         return null;
     }
 
+    // ← Métodos adicionados para SistemaService
     public void salvarTreinadores() {
         arquivo.salvar(treinadores);
     }
-    
+
     public void carregarTreinadores() {
-        this.treinadores = arquivo.carregar();
+        treinadores.clear();
+        treinadores.addAll(arquivo.carregar());
     }
 }

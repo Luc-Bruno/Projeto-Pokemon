@@ -8,6 +8,8 @@ public class PokemonFogo extends Pokemon {
 
     @Override
     public void usarHabilidade() {
+        // Exemplo: escudo de fogo
+        ganharExperiencia(10);
     }
 
     @Override
@@ -16,4 +18,3 @@ public class PokemonFogo extends Pokemon {
         ganharExperiencia(50);
     }
 }
-

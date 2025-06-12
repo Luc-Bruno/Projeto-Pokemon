@@ -1,3 +1,4 @@
+// src/service/BatalhaService.java
 package service;
 
 import Model.Batalha;
@@ -20,7 +21,6 @@ public class BatalhaService {
         Batalha b = new Batalha(p1, p2);
         b.batalhar();
         batalhas.add(b);
-        arquivo.salvar(batalhas);
         return b;
     }
 
@@ -31,7 +31,6 @@ public class BatalhaService {
     public boolean removerBatalha(int idx) {
         if (idx >= 0 && idx < batalhas.size()) {
             batalhas.remove(idx);
-            arquivo.salvar(batalhas);
             return true;
         }
         return false;
@@ -40,9 +39,18 @@ public class BatalhaService {
     public Batalha atualizarBatalha(int idx, Batalha nova) {
         if (idx >= 0 && idx < batalhas.size()) {
             batalhas.set(idx, nova);
-            arquivo.salvar(batalhas);
             return nova;
         }
         return null;
+    }
+
+    public void salvarBatalhas() {
+        arquivo.salvar(batalhas);
+    }
+
+    // ← Método adicionado para SistemaService
+    public void carregarBatalhas() {
+        batalhas.clear();
+        batalhas.addAll(arquivo.carregar());
     }
 }

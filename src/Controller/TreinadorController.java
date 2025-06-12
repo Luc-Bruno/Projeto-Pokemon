@@ -1,79 +1,70 @@
+// src/Controller/TreinadorController.java
 package Controller;
 
 import Model.Treinador;
-import Model.TreinadorRepository;
 import persistencia.ArquivoTreinador;
-import Controller.ServicosAuxiliares;
-
+import java.util.List;
 import java.util.ArrayList;
 
 public class TreinadorController {
-    private TreinadorRepository repositorioT = new TreinadorRepository();
+    private final List<Treinador> treinadores;
+    private final ArquivoTreinador arquivo;
 
-    public TreinadorController(){
-        ArrayList<Treinador> treinadores = ArquivoTreinador.carregar();
-        for(Treinador t : treinadores){
-            repositorioT.adcionarTrein(t);
-        }
+    public TreinadorController() {
+        this.arquivo    = new ArquivoTreinador();
+        this.treinadores = arquivo.carregar();
     }
 
-    public void cadastrarTreinador(String nome, int idade){
+    /** Método para compatibilidade com o MenuPrincipal que passa só o nome */
+    public void adicionarTreinador(String nome) {
+        cadastrarTreinador(nome, 0);
+    }
 
-        if (ServicosAuxiliares.nomeValido(nome)) {
-            System.out.println("Erro: Nome inválido, use apenas letras e espaços.");
+    /** Cadastra com nome e idade, valida e persiste */
+    public void cadastrarTreinador(String nome, int idade) {
+        if (nome == null || nome.trim().isEmpty()) {
+            System.out.println("Erro: nome não pode ficar vazio.");
             return;
         }
+        // idade padrão 0 sempre passa validação aqui; personalize se quiser
+        treinadores.add(new Treinador(nome, idade));
+        arquivo.salvar(treinadores);
+        System.out.println("Treinador \"" + nome + "\" cadastrado com sucesso.");
+    }
 
-        if (!ServicosAuxiliares.idadeValida(idade)){
-            System.out.println("Erro: Idade inválida, A idade deve estar entre 1 e 99.");
+    public List<Treinador> listarTreinadores() {
+        return new ArrayList<>(treinadores);
+    }
+
+    public void removerTreinador(String nome) {
+        Treinador t = buscarTreinador(nome);
+        if (t != null) {
+            treinadores.remove(t);
+            arquivo.salvar(treinadores);
+            System.out.println("Treinador \"" + nome + "\" removido.");
+        } else {
+            System.out.println("Treinador não encontrado.");
+        }
+    }
+
+    public Treinador buscarTreinador(String nome) {
+        for (Treinador t : treinadores) {
+            if (t.getNome().equalsIgnoreCase(nome)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    public void atualizarTreinador(String nomeAntigo, String novoNome, int novaIdade) {
+        Treinador t = buscarTreinador(nomeAntigo);
+        if (t == null) {
+            System.out.println("Treinador não encontrado.");
             return;
         }
-
-        Treinador t = new Treinador(nome, idade);
-        repositorioT.adcionarTrein(t);
-        ArquivoTreinador.salvar(repositorioT.listarTreinador());
-        System.out.println("Treinador cadastrado com sucesso!!");
-    }
-
-    public ArrayList<Treinador> listarTreinadores(){
-        return repositorioT.listarTreinador();
-    }
-
-    public void removerTreinador(String nome){
-        boolean sucesso = repositorioT.removerTreinador(nome);
-        if (sucesso){
-            ArquivoTreinador.salvar(repositorioT.listarTreinador());
-            System.out.println("Treinador removido!!");
-        }else{
-            System.out.println("Treinador não encontrado!!");
-        }
-    }
-
-    public Treinador buscarTreinador(String nome){
-        return repositorioT.buscarPorNome(nome);
-    }
-
-    public void atualizarTreinador(String nomeAntigo, String novoNome, int novaIdade){
-        Treinador treinador = repositorioT.buscarPorNome(nomeAntigo);
-
-            if (treinador == null) {
-                System.out.println("Treinador não encontrado!");
-                return;
-            }
-
-            if (!ServicosAuxiliares.nomeValido(novoNome)){
-                System.out.println("Erro, use apenas letras e espaços.");
-                return;
-            }
-
-            if (!ServicosAuxiliares.idadeValida(novaIdade)) {
-                System.out.println("A idade deve estar entre 1 e 99.");
-                return;
-            }
-
-            treinador.setNome(novoNome);
-            treinador.setIdade(novaIdade);
-            ArquivoTreinador.salvar(repositorioT.listarTreinador());
-            System.out.println("Treinador atualizado com sucesso!");
+        t.setNome(novoNome);
+        t.setIdade(novaIdade);
+        arquivo.salvar(treinadores);
+        System.out.println("Treinador \"" + novoNome + "\" atualizado com sucesso.");
     }
 }
