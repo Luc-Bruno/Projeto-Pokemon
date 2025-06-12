@@ -1,7 +1,7 @@
 package View;
 
 import java.util.List;
-import View.helpers.InputHelper;
+import View.InputHelper;
 import Model.Treinador;
 import Model.Pokemon;
 import Model.Batalha;
