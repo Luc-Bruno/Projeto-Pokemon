@@ -7,7 +7,7 @@ public class ServicosAuxiliares {
         for (char c: nome.toCharArray()) {
             if (!Character.isLetter(c)&& c != ' ') return false;
         }
-        return true
+        return true;
     }
 
     public static boolean idadeValida(int idade) {
