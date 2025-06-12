@@ -1,6 +1,6 @@
-package view;
+package View;
 
-import model.Pokemon;
+import Model.Pokemon;
 import service.SistemaService;
 
 import java.util.Scanner;

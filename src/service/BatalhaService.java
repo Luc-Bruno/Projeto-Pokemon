@@ -1,7 +1,7 @@
 package service;
 
-import model.Batalha;
-import model.Pokemon;
+import Model.Batalha;
+import Model.Pokemon;
 import persistencia.ArquivoBatalha;
 
 import java.util.ArrayList;

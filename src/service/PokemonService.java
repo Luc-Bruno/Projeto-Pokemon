@@ -1,6 +1,6 @@
 package service;
 
-import model.Pokemon;
+import Model.Pokemon;
 import persistencia.ArquivoPokemon;
 
 import java.util.ArrayList;

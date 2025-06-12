@@ -1,6 +1,6 @@
 package service;
 
-import model.Treinador;
+import Model.Treinador;
 import persistencia.ArquivoTreinador;
 
 import java.util.ArrayList;

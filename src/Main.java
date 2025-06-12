@@ -1,5 +1,5 @@
 import service.SistemaService;
-import view.MenuPrincipal;
+import View.MenuPrincipal;
 
 public class Main {
     public static void main(String[] args) {
