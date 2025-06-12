@@ -3,6 +3,7 @@ package Controller;
 import Model.Batalha;
 import Model.Pokemon;
 import service.BatalhaService;
+
 import java.util.List;
 
 public class BatalhaController {
@@ -37,9 +38,4 @@ public class BatalhaController {
             System.out.println("Índice inválido.");
         }
     }
-
-    public void salvarHistorico() {
-        service.salvarBatalhas();
-    }
 }
-
