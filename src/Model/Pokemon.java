@@ -1,44 +1,45 @@
+// src/Model/Pokemon.java
 package Model;
 
 public abstract class Pokemon implements Batalhavel {
+    private String nome;
+    private int nivel;
+    private Tipo tipo;
+    private Treinador treinador;
 
-protected String nome;
-protected int nivel;
-protected int experiencia;
-
-    public Pokemon(String nome, int nivel) {
+    public Pokemon(String nome, int nivel, Tipo tipo, Treinador treinador) {
         this.nome = nome;
         this.nivel = nivel;
-        this.experiencia = 0;
+        this.tipo = tipo;
+        this.treinador = treinador;
     }
-
-    public void setNivel(int nivel) {
-    this.nivel = nivel;
-}
 
     public String getNome() {
         return nome;
     }
-    public int getNivel(){
+
+    public int getNivel() {
         return nivel;
     }
 
-    public int getExperiencia(){
-        return experiencia;
+    public Tipo getTipo() {
+        return tipo;
     }
-    public void ganharExperiencia(int xp){
-        this.experiencia+=xp;
-        if (experiencia >=100){
-            this.nivel++;
-            this.experiencia=0;
-            System.out.println(nome+" Subiu para o nivel: " +nivel+" !");
-        }
-    }
-@Override
-public abstract void atacar(Batalhavel oponente);
 
-
+    public Treinador getTreinador() {
+        return treinador;
     }
+
+    public void ganharExperiencia(int pontos) {
+        this.nivel += pontos;
+    }
+
+    public abstract void usarHabilidade();
+
+    @Override
+    public abstract void atacar(Batalhavel alvo);
+}
+
 
 
 

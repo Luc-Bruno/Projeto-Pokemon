@@ -2,7 +2,7 @@ package Model;
 
 public interface Batalhavel {
 
-void atacar(Batalhavel oponente);
+void atacar(Batalhavel alvo);
 String getNome();
 int getNivel();
 }

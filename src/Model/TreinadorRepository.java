@@ -1,34 +1,22 @@
 package Model;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
 import java.util.ArrayList;
 
 public class TreinadorRepository {
-    private ArrayList<Treinador> treinadores = new ArrayList<>();
+    private static final Map<String, Treinador> MAPA = new HashMap<>();
 
-
-    public void adcionarTrein(Treinador t){
-        treinadores.add(t);
+    public static Treinador getOuCriar(String nome) {
+        return MAPA.computeIfAbsent(nome, n -> new Treinador(n, 0));
     }
 
-    public ArrayList<Treinador> listarTreinador(){
-        return treinadores;
+    public static List<Treinador> listarTreinadores() {
+        return new ArrayList<>(MAPA.values());
     }
 
-    public Treinador buscarPorNome(String nome){
-        for(Treinador t : treinadores){
-            if (t.getNome().equalsIgnoreCase(nome)){
-                return t;
-            }
-        }
-        return null;
+    public static boolean removerTreinador(String nome) {
+        return MAPA.remove(nome) != null;
     }
-
-    public boolean removerTreinador(String nome){
-        Treinador t = buscarPorNome(nome);
-        if (t != null){
-            return treinadores.remove(t);
-        }
-        return false;
-    }
-
 }

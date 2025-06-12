@@ -7,12 +7,12 @@ public class Batalha {
     private Pokemon pokemon2;
     private String vencedor;
 
-    public Batalha(Treinador trei1, Treinador trei2, Pokemon poke1, Pokemon poke2, String Vencedor){
-        this.treinador1 = trei1;
-        this.treinador2 = trei2;
+    public Batalha(Pokemon poke1, Pokemon poke2) {
         this.pokemon1 = poke1;
         this.pokemon2 = poke2;
-        this.vencedor = Vencedor;
+        this.treinador1 = poke1.getTreinador();
+        this.treinador2 = poke2.getTreinador();
+        this.vencedor = null; // Ainda não sabemos quem venceu
     }
 
     public void batalhar() {
