@@ -3,7 +3,11 @@ package Controller;
 public class ServicosAuxiliares {
 
     public static boolean nomeValido(String nome) {
-        return nome != null && nome.matches("[A-Za-zÀ-ÿ\\s]+");
+        if (nome == null || nome.trim().isEmpty()) return false;
+        for (char c: nome.toCharArray()) {
+            if (!Character.isLetter(c)&& c != ' ') return false;
+        }
+        return true
     }
 
     public static boolean idadeValida(int idade) {
