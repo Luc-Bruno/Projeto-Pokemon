@@ -28,7 +28,7 @@ public void mostrarMenu() {
         System.out.println("0. Sair");
         System.out.print("Escolha uma opção: ");
         opcao = scanner.nextInt();
-        scanner.nextLine(); // consumir quebra de linha
+        scanner.nextLine(); 
 
         switch (opcao) {
             case 1 -> adicionarPokemon();
