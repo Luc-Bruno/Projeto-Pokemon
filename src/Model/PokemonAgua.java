@@ -8,7 +8,6 @@ public class PokemonAgua extends Pokemon {
 
     @Override
     public void usarHabilidade() {
-        // Exemplo: cura água
         ganharExperiencia(10);
     }
 

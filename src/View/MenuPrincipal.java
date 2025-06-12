@@ -33,7 +33,6 @@ public class MenuPrincipal {
                     break;
 
                 case "2":
-                    // CHAMADA CORRETA: listarPokemons()
                     pokemonCtrl.listarPokemons();
                     break;
 
@@ -114,7 +113,6 @@ public class MenuPrincipal {
     }
 
     private void realizarBatalha() {
-        // Se precisar acessar a lista, use getPokemons()
         List<Pokemon> lista = pokemonCtrl.getPokemons();
         if (lista.size() < 2) {
             System.out.println("Cadastre pelo menos 2 Pokémons para batalhar.");

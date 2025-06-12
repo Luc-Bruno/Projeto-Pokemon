@@ -48,7 +48,6 @@ public class BatalhaService {
         arquivo.salvar(batalhas);
     }
 
-    // ← Método adicionado para SistemaService
     public void carregarBatalhas() {
         batalhas.clear();
         batalhas.addAll(arquivo.carregar());

@@ -10,12 +10,10 @@ import java.util.List;
 public class PokemonController {
     private final PokemonService service = new PokemonService();
 
-    /** Retorna a lista para quem quiser trabalhar com ela */
     public List<Pokemon> getPokemons() {
         return service.getPokemons();
     }
 
-    /** Imprime a lista formatada no console */
     public void listarPokemons() {
         List<Pokemon> lista = service.getPokemons();
         if (lista.isEmpty()) {
@@ -35,20 +33,17 @@ public class PokemonController {
         }
     }
 
-    /** Cria e persiste um novo Pokémon */
     public void adicionarPokemon(String nome, Tipo tipo, int nivel, Treinador dono) {
         service.criarPokemon(nome, tipo, nivel, dono);
         System.out.println("Pokémon \"" + nome + "\" adicionado com sucesso.");
     }
 
-    /** Remove pelo nome e persiste */
     public boolean removerPokemon(String nome) {
         boolean ok = service.removerPokemon(nome);
         if (ok) System.out.println("Pokémon \"" + nome + "\" removido.");
         return ok;
     }
 
-    /** Atualiza o nível (ganha XP se subir) e persiste */
     public boolean atualizarNivel(String nome, int novoNivel) {
         boolean ok = service.atualizarNivel(nome, novoNivel);
         if (ok) {

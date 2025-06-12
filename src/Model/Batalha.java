@@ -12,7 +12,7 @@ public class Batalha {
         this.pokemon2 = poke2;
         this.treinador1 = poke1.getTreinador();
         this.treinador2 = poke2.getTreinador();
-        this.vencedor = null; // Ainda não sabemos quem venceu
+        this.vencedor = null;
     }
 
     public void batalhar() {

@@ -60,7 +60,6 @@ public class PokemonService {
         return null;
     }
 
-    // ← Métodos adicionados para SistemaService
     public void salvarPokemons() {
         arquivo.salvar(pokemons);
     }

@@ -8,7 +8,6 @@ public class PokemonGrama extends Pokemon {
 
     @Override
     public void usarHabilidade() {
-        // Exemplo: crescimento de raízes
         ganharExperiencia(10);
     }
 

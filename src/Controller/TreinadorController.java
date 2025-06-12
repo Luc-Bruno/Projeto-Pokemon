@@ -15,18 +15,16 @@ public class TreinadorController {
         this.treinadores = arquivo.carregar();
     }
 
-    /** Método para compatibilidade com o MenuPrincipal que passa só o nome */
     public void adicionarTreinador(String nome) {
         cadastrarTreinador(nome, 0);
     }
 
-    /** Cadastra com nome e idade, valida e persiste */
     public void cadastrarTreinador(String nome, int idade) {
         if (nome == null || nome.trim().isEmpty()) {
             System.out.println("Erro: nome não pode ficar vazio.");
             return;
         }
-        // idade padrão 0 sempre passa validação aqui; personalize se quiser
+
         treinadores.add(new Treinador(nome, idade));
         arquivo.salvar(treinadores);
         System.out.println("Treinador \"" + nome + "\" cadastrado com sucesso.");

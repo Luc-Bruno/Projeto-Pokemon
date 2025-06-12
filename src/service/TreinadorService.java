@@ -54,7 +54,6 @@ public class TreinadorService {
         return null;
     }
 
-    // ← Métodos adicionados para SistemaService
     public void salvarTreinadores() {
         arquivo.salvar(treinadores);
     }
