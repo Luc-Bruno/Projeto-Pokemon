@@ -1,8 +1,5 @@
 // src/Main.java
 import Model.Pokemon;
-import Model.PokemonFogo;
-import Model.PokemonAgua;
-import Model.PokemonGrama;
 import Model.Treinador;
 import Model.TreinadorRepository;
 import Model.Tipo;
