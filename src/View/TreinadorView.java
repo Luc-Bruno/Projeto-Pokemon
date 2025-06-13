@@ -1,4 +1,3 @@
-// src/View/TreinadorView.java
 package View;
 
 import Controller.TreinadorController;

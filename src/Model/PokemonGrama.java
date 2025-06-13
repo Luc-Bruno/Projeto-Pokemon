@@ -1,4 +1,3 @@
-// src/Model/PokemonGrama.java
 package Model;
 
 public class PokemonGrama extends Pokemon {

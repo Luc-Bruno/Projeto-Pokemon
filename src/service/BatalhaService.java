@@ -1,4 +1,3 @@
-// src/service/BatalhaService.java
 package service;
 
 import Model.Batalha;

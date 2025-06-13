@@ -1,4 +1,3 @@
-// src/Model/PokemonAgua.java
 package Model;
 
 public class PokemonAgua extends Pokemon {

@@ -1,4 +1,3 @@
-// src/service/TreinadorService.java
 package service;
 
 import Model.Treinador;

@@ -1,4 +1,3 @@
-// src/Model/Batalhavel.java
 package Model;
 
 public interface Batalhavel {

@@ -1,4 +1,3 @@
-// src/Model/Pokemon.java
 package Model;
 
 public abstract class Pokemon implements Batalhavel {

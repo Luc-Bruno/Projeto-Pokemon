@@ -1,4 +1,3 @@
-// src/Controller/TreinadorController.java
 package Controller;
 
 import Model.Treinador;

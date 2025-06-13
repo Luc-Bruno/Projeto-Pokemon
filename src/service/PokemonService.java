@@ -1,4 +1,3 @@
-// src/service/PokemonService.java
 package service;
 
 import Model.Pokemon;

@@ -1,4 +1,3 @@
-// src/View/PokemonView.java
 package View;
 
 import Controller.PokemonController;

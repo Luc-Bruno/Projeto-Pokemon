@@ -27,11 +27,10 @@ public class Main {
             System.out.println("\n=== MENU PRINCIPAL ===");
             System.out.println("1) Adicionar Treinador");
             System.out.println("2) Adicionar Pokémons");
-            System.out.println("3) Listar Treinador");
-            System.out.println("4) Listar Pokémon");
-            System.out.println("5) Realizar Batalha");
-            System.out.println("6) Histórico de Batalhas");
-            System.out.println("7) Sair");
+            System.out.println("3) Listar Pokémon e Treinador");
+            System.out.println("4) Realizar Batalha");
+            System.out.println("5) Histórico de Batalhas");
+            System.out.println("0) Sair");
             System.out.print("Opção: ");
             int opc = sc.nextInt();
             sc.nextLine();
@@ -56,12 +55,9 @@ public class Main {
                     pokemonCtrl.adicionarPokemon(pn, tipo, nv, t);
                     break;
                 case 3:
-                    treinCtrl.listarTreinadores();
-                    break;
-                case 4:
                     pokemonCtrl.listarPokemons();
                     break;
-                case 5:
+                case 4:
                     List<Pokemon> lista = pokemonCtrl.getPokemons();
                     if (lista.size() < 2) {
                         System.out.println("Precisa haver pelo menos 2 pokémons cadastrados.");
@@ -77,10 +73,10 @@ public class Main {
                     sc.nextLine();
                     batalhaCtrl.iniciarBatalha(lista.get(i1), lista.get(i2));
                     break;
-                case 6:
+                case 5:
                     batalhaCtrl.listarHistorico();
                     break;
-                case 7:
+                case 0:
                     sistema.salvarTudo();
                     sc.close();
                     System.out.println("Saindo... Até breve!");
