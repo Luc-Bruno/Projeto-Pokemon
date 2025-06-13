@@ -25,10 +25,10 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("\n=== MENU PRINCIPAL ===");
-            System.out.println("1) Listar Treinadores");
-            System.out.println("2) Listar Pokémons");
-            System.out.println("3) Adicionar Treinador");
-            System.out.println("4) Adicionar Pokémon");
+            System.out.println("1) Adicionar Treinador");
+            System.out.println("2) Adicionar Pokémons");
+            System.out.println("3) Listar Treinador");
+            System.out.println("4) Listar Pokémon");
             System.out.println("5) Realizar Batalha");
             System.out.println("6) Histórico de Batalhas");
             System.out.println("7) Sair");
@@ -38,17 +38,11 @@ public class Main {
 
             switch (opc) {
                 case 1:
-                    treinCtrl.listarTreinadores();
-                    break;
-                case 2:
-                    pokemonCtrl.listarPokemons();
-                    break;
-                case 3:
                     System.out.print("Nome do Treinador: ");
                     String tn = sc.nextLine().trim();
                     treinCtrl.adicionarTreinador(tn);
                     break;
-                case 4:
+                case 2:
                     System.out.print("Nome do Treinador dono: ");
                     String dono = sc.nextLine().trim();
                     Treinador t = TreinadorRepository.getOuCriar(dono);
@@ -60,6 +54,12 @@ public class Main {
                     int nv = sc.nextInt();
                     sc.nextLine();
                     pokemonCtrl.adicionarPokemon(pn, tipo, nv, t);
+                    break;
+                case 3:
+                    treinCtrl.listarTreinadores();
+                    break;
+                case 4:
+                    pokemonCtrl.listarPokemons();
                     break;
                 case 5:
                     List<Pokemon> lista = pokemonCtrl.getPokemons();
