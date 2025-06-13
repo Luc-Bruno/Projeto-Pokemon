@@ -1,4 +1,3 @@
-// src/Main.java
 import Model.Pokemon;
 import Model.PokemonFogo;
 import Model.PokemonAgua;
