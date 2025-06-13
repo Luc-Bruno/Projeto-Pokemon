@@ -13,7 +13,7 @@ public class PokemonAgua extends Pokemon {
 
     @Override
     public void atacar(Batalhavel alvo) {
-        System.out.println(getNome() + " usa Jato de Água em " + ((Pokemon) alvo).getNome());
+        System.out.println(getNome() + " usa jato de agua em " + ((Pokemon) alvo).getNome());
         ganharExperiencia(50);
     }
 }
