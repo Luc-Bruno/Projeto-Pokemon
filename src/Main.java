@@ -32,9 +32,15 @@ public class Main {
             System.out.println("5) Histórico de Batalhas");
             System.out.println("0) Sair");
             System.out.print("Opção: ");
-            int opc = sc.nextInt();
-            sc.nextLine();
-
+            int opc = -1;
+            try {
+                opc = sc.nextInt();
+                sc.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Opção inválida. Por favor, digite um número entre 0 e 5.");
+                sc.nextLine();
+                continue;
+            }
             switch (opc) {
                 case 1:
                     System.out.print("Nome do Treinador: ");
@@ -94,7 +100,7 @@ public class Main {
                 case 0:
                     sistema.salvarTudo();
                     sc.close();
-                    System.out.println("Saindo... Até breve!");
+                    System.out.println("Saindo \uD83D\uDE33 \uD83D\uDC49\uD83D\uDC48... Até breve!");
                     return;
                 default:
                     System.out.println("Opção inválida.");
