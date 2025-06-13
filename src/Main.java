@@ -10,6 +10,7 @@ import Controller.BatalhaController;
 import Controller.PokemonController;
 import Controller.TreinadorController;
 import service.SistemaService;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,18 +43,33 @@ public class Main {
                     treinCtrl.adicionarTreinador(tn);
                     break;
                 case 2:
-                    System.out.print("Nome do Treinador dono: ");
-                    String dono = sc.nextLine().trim();
-                    Treinador t = TreinadorRepository.getOuCriar(dono);
-                    System.out.print("Nome do Pokémon: ");
-                    String pn = sc.nextLine().trim();
-                    System.out.print("Tipo (FOGO, AGUA, PLANTA): ");
-                    Tipo tipo = Tipo.valueOf(sc.nextLine().trim().toUpperCase());
-                    System.out.print("Nível inicial: ");
-                    int nv = sc.nextInt();
-                    sc.nextLine();
-                    pokemonCtrl.adicionarPokemon(pn, tipo, nv, t);
+                    try {
+                        System.out.print("Nome do Treinador dono: ");
+                        String dono = sc.nextLine().trim();
+                        Treinador t = TreinadorRepository.getOuCriar(dono);
+
+                        System.out.print("Nome do Pokémon: ");
+                        String pn = sc.nextLine().trim();
+
+                        System.out.print("Tipo (FOGO, AGUA, PLANTA): ");
+                        String tipoStr = sc.nextLine().trim().toUpperCase();
+                        Tipo tipo = Tipo.valueOf(tipoStr);
+
+                        System.out.print("Nível inicial: ");
+                        int nv = sc.nextInt();
+                        sc.nextLine();
+
+                        pokemonCtrl.adicionarPokemon(pn, tipo, nv, t);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Tipo inválido! Use: FOGO, AGUA ou PLANTA.");
+                    } catch (InputMismatchException e) {
+                        System.out.println("Nível deve ser um número inteiro.");
+                        sc.nextLine();
+                    } catch (Exception e) {
+                        System.out.println("Erro ao adicionar Pokémon: " + e.getMessage());
+                    }
                     break;
+
                 case 3:
                     pokemonCtrl.listarPokemons();
                     break;
